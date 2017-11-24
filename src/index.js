@@ -8,8 +8,7 @@ const store = configureStore();
 
 let Init = ()=>{
     return(
-        <App/>
-        
+        <App/>        
     );
 }
 Init = withNetworkConnectivity({

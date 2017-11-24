@@ -9,7 +9,8 @@
   "dependencies": {
     "react": "16.0.0",
     "react-native": "0.50.3",
-    "react-native-offline": "^3.4.1"
+    "react-native-offline": "^3.4.1",
+    "react-native-simple-toast": "0.0.7"
   },
   "devDependencies": {
     "babel-jest": "21.2.0",

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Platform, StyleSheet,  Text,  View,  Button, TouchableNativeFeedback} from 'react-native';
 import { connect } from "react-redux";
 import { withNetworkConnectivity } from 'react-native-offline';
+import {decrementAction, incrementAction} from './action';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,7 +30,7 @@ class App extends Component {
         <View style={{flex:1,flexDirection:'row'}}>
             <View style={{flex:1,justifyContent:'center'}}>
                 <Button
-                  onPress={this.onPressIncrement.bind(this)}
+                  onPress={this.onPressDecrement.bind(this)}
                   title="Decriment"
                   color="#841584"
                 />
@@ -39,7 +40,7 @@ class App extends Component {
             </View>
             <View style={{flex:1,justifyContent:'center'}}>
                 <Button
-                    onPress={this.onPressDecrement.bind(this)}
+                    onPress={this.onPressIncrement.bind(this)}
                     title="Increment"
                     color="#EF4F2F"
                 />
@@ -50,20 +51,20 @@ class App extends Component {
   }
 
   onPressDecrement() {
-    
+    this.props.decrementAction()  
   }
 
   onPressIncrement() {
-
+    this.props.incrementAction()
   }
 }
 
 const mapDispatchToProps = (dispatch) =>({
-  increment : ()=>{
-      dispatch(increment());
+  incrementAction : ()=>{
+      dispatch(incrementAction());
   },
-  decrement :()=>{
-    dispatch(decrement());
+  decrementAction :()=>{
+    dispatch(decrementAction());
   }
 });
 

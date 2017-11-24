@@ -4,13 +4,17 @@ export const INCR_SUCCESS = 'INCR_SUCCESS';
 export const INCR_FAIL = 'INCR_FAIL';  
 export const DECR_SUCCESS = 'DECR_SUCCESS';
 export const DECR_FAIL = 'DECR_FAIL';
+import operationService from './service'
 
 export const incrementAction = () => {
     async function thunk(dispatch) {
       try {
           dispatch({type:INCREMENTING});
-          await increment();
-          dispatch({type:INCR_SUCCESS});
+          const body = {'type':'increment'}
+          const result =await operationService.doOperation({'type':'increment'})
+          console.log(result,"incremented")
+          const value = JSON.parse(result._bodyInit).value
+          dispatch({type:INCR_SUCCESS,payload:{number:value}});
       } catch (error) {
           dispatch({type:INCR_FAIL})
       }
@@ -24,8 +28,10 @@ export const decrementAction = () => {
     async function thunk(dispatch) {
       try {
           dispatch({type:DECREMENTING});
-          await increment();
-          dispatch({type: DECR_SUCCESS});
+          const result = await operationService.doOperation({type:'decrement'})
+          console.log(result,"incremented")
+          const value = JSON.parse(result._bodyInit).value
+          dispatch({type:DECR_SUCCESS,payload:{number:value}});
       } catch (error) {
           dispatch({type: DECR_FAIL})
       }
@@ -33,7 +39,7 @@ export const decrementAction = () => {
   
     thunk.interceptInOffline = true; 
     thunk.meta = {
-        retry: boolean, // By passing true, your thunk will be enqueued on offline mode
+        retry: true, // By passing true, your thunk will be enqueued on offline mode
         // dismiss: []
     }
     return thunk; // Return it afterwards
