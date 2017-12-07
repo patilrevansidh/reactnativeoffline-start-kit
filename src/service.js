@@ -1,7 +1,7 @@
 import httpService from "./httpService";
 const obj = {
     doOperation(body) {
-        const url = "https://us-central1-firebase-musimobile.cloudfunctions.net/Count/";
+        const url = "myurl:params(type:'decrement') which decrement return sucess or false";
         console.log("operation body",body);
         return httpService.post(url,body);
     }
