@@ -5,7 +5,7 @@ import { reducer as network } from 'react-native-offline';
 
 const appReducer = combineReducers({
     redu,
-    // network
+    network
 });
 
 const initialState = appReducer({}, {});

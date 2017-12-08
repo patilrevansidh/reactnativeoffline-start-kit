@@ -9,8 +9,8 @@ const initState = {
 }
 const incrDcrReducer = (state = initState, action) =>{
     switch(action.type) {       
-        // case "persist/REHYDRATE" :
-        // return {...state,...action.payload.offline}
+        case "persist/REHYDRATE" :
+        return {...state,...action.payload.redu}
         case INCREMENTING :
             return {...state}
         case INCR_SUCCESS :

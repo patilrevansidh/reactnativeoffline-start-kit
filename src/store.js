@@ -13,6 +13,7 @@ import { createNetworkMiddleware } from 'react-native-offline';
 
 
 
+
 const myConfig = {
     ...offlineConfig,
     // effect: (effect, action) => sendData(effect, action),
@@ -29,7 +30,7 @@ const configureStore = () => {
     const store = createStore(
         reducer,
         compose(
-            applyMiddleware( thunk, logger),
+            applyMiddleware(networkMiddleware,thunk, logger),
             offline(myConfig),
             autoRehydrate()
         )

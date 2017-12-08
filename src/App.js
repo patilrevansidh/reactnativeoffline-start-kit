@@ -51,31 +51,27 @@ class App extends Component {
   }
 
   onPressDecrement() {
-    this.props.decrementAction()  
+    const number =  this.props.label.number;
+    this.props.decrementAction(number);  
   }
 
   onPressIncrement() {
-    this.props.incrementAction()
+    const number =   this.props.label.number;
+    this.props.incrementAction(number)
   }
 }
 
 const mapDispatchToProps = (dispatch) =>({
-  incrementAction : ()=>{
-      dispatch(incrementAction());
+  incrementAction : (number)=>{
+      dispatch(incrementAction(number));
   },
-  decrementAction :()=>{
-    dispatch(decrementAction());
-  },
-  goOffline: () => {
-    dispatch({ type: 'Offline/STATUS_CHANGED', payload: { online: false } })
-  },
-  goOnline: () => dispatch({ type: 'Offline/STATUS_CHANGED', payload: { online: true } }),
+  decrementAction :(number)=>{
+    dispatch(decrementAction(number));
+  }
 });
 
 const mapStateToProps = (state) =>({
   label : state.redu,
-  outbox: state.offline.outbox,
-  isOnline: state.offline.online
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

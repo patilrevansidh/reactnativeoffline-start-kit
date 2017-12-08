@@ -11,9 +11,9 @@ let Init = ()=>{
         <App/>        
     );
 }
-// Init = withNetworkConnectivity({
-//     withRedux: true // It won't inject isConnected as a prop in this case
-// })(Init);
+Init = withNetworkConnectivity({
+    withRedux: true // It won't inject isConnected as a prop in this case
+})(Init);
   
 const OfflineTry = () => (
     <Provider store={store}>
