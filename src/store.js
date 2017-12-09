@@ -16,7 +16,7 @@ import { createNetworkMiddleware } from 'react-native-offline';
 
 const myConfig = {
     ...offlineConfig,
-    // effect: (effect, action) => sendData(effect, action),
+    effect: (effect, action) => sendData(effect, action),
     persistOptions: {
         storage: AsyncStorage,
         blacklist : ['nav']
@@ -30,7 +30,7 @@ const configureStore = () => {
     const store = createStore(
         reducer,
         compose(
-            applyMiddleware(networkMiddleware,thunk, logger),
+            applyMiddleware(thunk, logger),
             offline(myConfig),
             autoRehydrate()
         )
@@ -40,19 +40,24 @@ const configureStore = () => {
     return store;
 }
 
+
 function sendData (effect, action) {
+    console.log(action,"config")
     const promise = new Promise((resolve, reject) => {
         let options = {
-            method : effect.method
+            method :"post" //effect.method
         };
         
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
-        options.body = JSON.stringify(effect.body);
-
-        fetch(effect.url, options)
+        options.body = effect.body;
+        // console.log(effect,"config")
+        fetch("https://j5lm2nusvi.execute-api.us-east-1.amazonaws.com/dev/", options)
         .then((response) => {
-            resolve(response);
+            console.log(response)
+            const value = JSON.parse(response._bodyInit).value
+            // console.log("value",value)
+           resolve({number:value})
         }).catch((message)=> {
             reject(message);
         }); 
